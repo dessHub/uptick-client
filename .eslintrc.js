@@ -31,7 +31,7 @@ module.exports = {
       'no-console': 'error',
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
-      'simple-import-sort/sort': 'error',
+      'simple-import-sort/imports': 'error',
       'unicorn/filename-case': 'off'
     }
   };

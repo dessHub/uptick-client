@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import styles from '../../styles/Home.module.css'
-import Navbar from '../navbar'
+import React, { useEffect, useState } from 'react';
 
-const WhatIfs = ({children}) => {
+import styles from '../../styles/Home.module.css';
+import Navbar from '../navbar';
+
+const WhatIfs = ({ children }) => {
   const { query } = useRouter();
   const [selectedSection, setSelectedSection] = useState(query.page);
   useEffect(() => {
@@ -11,14 +12,11 @@ const WhatIfs = ({children}) => {
   }, [query.page]);
 
   return (
-      <>
-        <Navbar />
-          
-       <main className={styles.main}>
+    <>
+      <Navbar />
 
-        {children}
-       </main>
-      </>
+      <main className={styles.main}>{children}</main>
+    </>
   );
 };
 
