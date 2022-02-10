@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint '*/**/*.{js,jsx}' --quiet --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-commit": "next lint"
   },
   "husky": {
     "hooks": {
