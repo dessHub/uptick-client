@@ -1,17 +1,21 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 function NavLink({ to, children }) {
   return (
-    <a
-      href={to}
-      className={`flex items-center justify-center h-20 px-2 mx-0 w-28 hover:bg-blue-900 hover:text-blue-200 hover:border-t-blue-200 hover:border-t`}
-    >
-      {children}
-    </a>
+    <Link href={to}>
+      <a
+        className={`flex items-center justify-center h-20 px-2 mx-0 w-28 hover:bg-blue-900 hover:text-blue-200 hover:border-t-blue-200 hover:border-t`}
+      >
+        {children}
+      </a>
+    </Link>
   );
 }
+
 function MobileNav({ open, setOpen }) {
   return (
     <div
@@ -21,30 +25,31 @@ function MobileNav({ open, setOpen }) {
     >
       <div className="flex items-center justify-center ml-4 filter drop-shadow-md bg-blue-800 h-20">
         {' '}
-        {/*logo container*/}
-        <a className="text-xl font-semibold" href="/" onClick={setOpen}>
-          UPTICK
-        </a>
+        {/* logo container*/}
+        <Link href="/">
+          <a className="text-xl font-semibold" onClick={setOpen}>
+            UPTICK
+          </a>
+        </Link>
       </div>
       <div className="flex flex-col ml-4">
-        <a className="text-xl font-medium my-4" href="/about" onClick={setOpen}>
-          About
+        <a className="text-xl font-medium my-4" href="/loans" onClick={setOpen}>
+          Loans
         </a>
         <a
-          className="text-xl font-normal my-4"
-          href="/contact"
+          className="text-xl font-medium my-4"
+          href="/remittance"
           onClick={setOpen}
         >
-          Contact
+          Remittance
         </a>
-        <a className="text-xl font-medium my-4" href="/about" onClick={setOpen}>
+        <a className="text-xl font-normal my-4" href="/users" onClick={setOpen}>
+          Users
+        </a>
+        <a className="text-xl font-medium my-4" href="/" onClick={setOpen}>
           Manage Account
         </a>
-        <a
-          className="text-xl font-normal my-4"
-          href="/contact"
-          onClick={setOpen}
-        >
+        <a className="text-xl font-normal my-4" href="/" onClick={setOpen}>
           Sign Out
         </a>
       </div>
@@ -65,12 +70,14 @@ export default function Navbar() {
     <nav className="flex filter drop-shadow-md bg-blue-800 text-blue-300 px-4 h-20 items-center">
       <MobileNav open={open} setOpen={handleToggle} />
       <div className="w-3/12 flex items-center">
-        <a
-          className="text-2xl font-semibold h-20 px-2 flex items-center hover:bg-blue-900 hover:text-blue-200"
-          href="/"
-        >
-          <span>UPTICK</span>
-        </a>
+        <Link href="/">
+          <a
+            className="text-2xl font-semibold h-20 px-2 flex items-center hover:bg-blue-900 hover:text-blue-200"
+            href="/"
+          >
+            <span>UPTICK</span>
+          </a>
+        </Link>
       </div>
       <div className="w-9/12 flex justify-end items-center ">
         <div
@@ -98,8 +105,9 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex">
-          <NavLink to="/contact">CONTACT</NavLink>
-          <NavLink to="/about">ABOUT</NavLink>
+          <NavLink to="/loans">Loans</NavLink>
+          <NavLink to="/remittance">Remittance</NavLink>
+          <NavLink to="/users">Users</NavLink>
           <div className="flex items-center justify-center h-20 px-2 mx-0 w-28 hover:bg-blue-900 hover:text-blue-200 hover:border-t-blue-200 hover:border-t">
             <Menu>
               <MenuButton className="bg-blue-800">
@@ -118,3 +126,13 @@ export default function Navbar() {
     </nav>
   );
 }
+
+NavLink.propTypes = {
+  children: PropTypes.node,
+  to: PropTypes.string,
+};
+
+MobileNav.propTypes = {
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+};

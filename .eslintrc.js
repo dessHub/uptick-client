@@ -1,37 +1,28 @@
 module.exports = {
-    parserOptions: {
-      ecmaVersion: 2020, 
-      sourceType: 'module', 
-      ecmaFeatures: {
-        jsx: true 
-      }
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: ['plugin:react/recommended', 'google', 'prettier'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-    env: {
-      browser: true,
-      node: true,
-      es6: true
+    ecmaVersion: 12,
+    sourceType: 'module',
+  },
+  plugins: ['react', '@typescript-eslint'],
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    'require-jsdoc': 0,
+    'react/no-unescaped-entities': 'off',
+    'no-console': 1,
+    'no-empty': 2,
+  },
+  settings: {
+    react: {
+      version: 'latest',
     },
-    plugins: ['simple-import-sort'],
-    settings: {
-      react: {
-        version: 'detect'
-      }
-    },
-    extends: [
-      'eslint:recommended',
-      'plugin:jsx-a11y/recommended',
-      'plugin:react/recommended', 
-      'plugin:prettier/recommended',
-      'plugin:sonarjs/recommended',
-      'plugin:unicorn/recommended',
-      'plugin:security/recommended',
-      'plugin:react-hooks/recommended'
-    ],
-    rules: {
-      'no-console': 'error',
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
-      'simple-import-sort/imports': 'error',
-      'unicorn/filename-case': 'off'
-    }
-  };
+  },
+};
