@@ -1,138 +1,150 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { Fragment } from 'react';
 import Link from 'next/link';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { MenuIcon, PlusIcon, XIcon } from '@heroicons/react/outline';
 
-function NavLink({ to, children }) {
-  return (
-    <Link href={to}>
-      <a
-        className={`flex items-center justify-center h-20 px-2 mx-0 w-28 hover:bg-blue-900 hover:text-blue-200 hover:border-t-blue-200 hover:border-t`}
-      >
-        {children}
-      </a>
-    </Link>
-  );
+const navigation = [
+  { name: 'Dashboard', href: '/', current: false },
+  { name: 'Users', href: '/users', current: false },
+  { name: 'Loans', href: '/loans', current: false },
+  { name: 'Remittance', href: '/remittance', current: false },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
 }
 
-function MobileNav({ open, setOpen }) {
+export default function Nav() {
   return (
-    <div
-      className={`absolute top-0 left-0 h-screen w-screen bg-blue-800 transform ${
-        open ? '-translate-x-0' : '-translate-x-full'
-      } transition-transform duration-300 ease-in-out filter drop-shadow-md `}
-    >
-      <div className="flex items-center justify-center ml-4 filter drop-shadow-md bg-blue-800 h-20">
-        {' '}
-        {/* logo container*/}
-        <Link href="/">
-          <a className="text-xl font-semibold" onClick={setOpen}>
-            UPTICK
-          </a>
-        </Link>
-      </div>
-      <div className="flex flex-col ml-4">
-        <a className="text-xl font-medium my-4" href="/loans" onClick={setOpen}>
-          Loans
-        </a>
-        <a
-          className="text-xl font-medium my-4"
-          href="/remittance"
-          onClick={setOpen}
-        >
-          Remittance
-        </a>
-        <a className="text-xl font-normal my-4" href="/users" onClick={setOpen}>
-          Users
-        </a>
-        <a className="text-xl font-medium my-4" href="/" onClick={setOpen}>
-          Manage Account
-        </a>
-        <a className="text-xl font-normal my-4" href="/" onClick={setOpen}>
-          Sign Out
-        </a>
-      </div>
-    </div>
-  );
-}
+    <Disclosure as="nav" className="bg-blue-800">
+      {({ open }) => (
+        <>
+          <div className="border-solid border-1 mx-auto px-2 sm:px-6 z-20">
+            <div className="relative flex items-center justify-between h-16">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button*/}
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-blue-300 hover:bg-blue-900 hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-200">
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex-shrink-0 flex items-center mr-10 md:mr-1">
+                  <Link href="/">
+                    <a
+                      className="text-2xl text-blue-200 font-semibold h-16 px-2 flex items-center hover:text-blue-200"
+                      href="/"
+                    >
+                      <span>UPTICK</span>
+                    </a>
+                  </Link>
+                </div>
+                <div className="hidden sm:block sm:ml-6">
+                  <div className="flex">
+                    {navigation.map(item => (
+                      <Link href={item.href} key={item.name}>
+                        <a
+                          className={classNames(
+                            item.current
+                              ? 'bg-blue-900 text-blue-200 border-t border-t-blue-200 hover:text-blue-300 hover:bg-blue-800  hover:border-t-blue-300'
+                              : 'text-blue-300 hover:bg-blue-900 hover:text-blue-200',
+                            'flex items-center justify-center hover:border-t px-3 py-2 text-sm font-medium h-16'
+                          )}
+                          aria-current={item.current ? 'page' : undefined}
+                        >
+                          {item.name}
+                        </a>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button
+                  type="button"
+                  className="flex items-center bg-sky-500 p-2 rounded-md text-slate-50 hover:text-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                >
+                  <PlusIcon className="w-5 mr-1" aria-hidden="true" />
+                  <span className="text-md">Loan</span>
+                </button>
 
-export default function Navbar() {
-  const [open, setOpen] = useState(false);
-
-  function handleToggle() {
-    setTimeout(() => {
-      setOpen(!open);
-    }, 100);
-  }
-
-  return (
-    <nav className="flex filter drop-shadow-md bg-blue-800 text-blue-300 px-4 h-20 items-center">
-      <MobileNav open={open} setOpen={handleToggle} />
-      <div className="w-3/12 flex items-center">
-        <Link href="/">
-          <a
-            className="text-2xl font-semibold h-20 px-2 flex items-center hover:bg-blue-900 hover:text-blue-200"
-            href="/"
-          >
-            <span>UPTICK</span>
-          </a>
-        </Link>
-      </div>
-      <div className="w-9/12 flex justify-end items-center ">
-        <div
-          className="z-50 flex relative w-8 h-8 flex-col justify-between items-center text-blue-300 md:hidden"
-          onClick={handleToggle}
-          role="button"
-          aria-hidden="true"
-        >
-          {/* hamburger button */}
-          <span
-            className={`h-1 w-full bg-blue-300 rounded-lg transform transition duration-300 ease-in-out ${
-              open ? 'rotate-45 translate-y-3.5' : ''
-            }`}
-          />
-          <span
-            className={`h-1 w-full bg-blue-300 rounded-lg transition-all duration-300 ease-in-out ${
-              open ? 'w-0' : 'w-full'
-            }`}
-          />
-          <span
-            className={`h-1 w-full bg-blue-300 rounded-lg transform transition duration-300 ease-in-out ${
-              open ? '-rotate-45 -translate-y-3.5' : ''
-            }`}
-          />
-        </div>
-
-        <div className="hidden md:flex">
-          <NavLink to="/loans">Loans</NavLink>
-          <NavLink to="/remittance">Remittance</NavLink>
-          <NavLink to="/users">Users</NavLink>
-          <div className="flex items-center justify-center h-20 px-2 mx-0 w-28 hover:bg-blue-900 hover:text-blue-200 hover:border-t-blue-200 hover:border-t">
-            <Menu>
-              <MenuButton className="bg-blue-800">
-                Oscar <ChevronDownIcon />
-              </MenuButton>
-              <MenuList backgroundColor="#1e40af">
-                <MenuItem className="bg-blue-800 hover:bg-blue-900">
-                  Manage Account
-                </MenuItem>
-                <MenuItem className="hover:bg-blue-900">Sign Out</MenuItem>
-              </MenuList>
-            </Menu>
+                {/* Profile dropdown */}
+                <Menu as="div" className="ml-3 relative">
+                  <div>
+                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      <span className="text-xl text-blue-300 p-2">KK</span>
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link href="/">
+                            <a
+                              className={classNames(
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700'
+                              )}
+                            >
+                              My Profile
+                            </a>
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link href="/">
+                            <a
+                              className={classNames(
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700'
+                              )}
+                            >
+                              Sign out
+                            </a>
+                          </Link>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </nav>
+
+          <Disclosure.Panel className="sm:hidden absolute left-0 pt-3 h-screen w-screen bg-blue-800 z-10">
+            <div className="px-0 pt-2 pb-3 space-y-1">
+              {navigation.map(item => (
+                <Link href={item.href} key={item.name}>
+                  <a
+                    className={classNames(
+                      item.current
+                        ? 'bg-blue-900 text-blue-200 hover:text-blue-300 hover:bg-blue-800'
+                        : 'bg-blue-800 text-blue-300 hover:text-blue-300 hover:bg-blue-900 ',
+                      'block px-3 py-2 rounded-md text-base font-medium'
+                    )}
+                    aria-current={item.current ? 'page' : undefined}
+                  >
+                    {item.name}
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   );
 }
-
-NavLink.propTypes = {
-  children: PropTypes.node,
-  to: PropTypes.string,
-};
-
-MobileNav.propTypes = {
-  open: PropTypes.bool,
-  setOpen: PropTypes.func,
-};
