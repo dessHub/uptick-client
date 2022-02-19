@@ -19,3 +19,25 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.gb {
+  .react-datepicker-wrapper {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 1px 5px;
+  }
+
+  .react-datepicker__input-container {
+    width: 120px;
+
+    @media (max-width: 640px) {
+      width: 100px;
+    }
+
+    input {
+      width: inherit;
+      padding: 7px 5px;
+      outline: none;
+    }
+  }
+}

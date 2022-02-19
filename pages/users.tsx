@@ -1,6 +1,6 @@
 import Layout from 'components/templates/Layout';
 import StatsCard from 'components/atoms/StatsCard';
-import { mockUsers } from 'helpers/users';
+import { mockUsers } from 'helpers/data';
 import { User } from 'types/users';
 import { useEffect, useState } from 'react';
 
@@ -28,7 +28,7 @@ export default function Users() {
 
   return (
     <Layout>
-      <div className="flex justify-start flex-col md:flex-row">
+      <div className="flex justify-start flex-col md:flex-row space-y-2 md:space-y-0 bg-slate-100 shadow-md px-2 py-5">
         <StatsCard
           title="No Users"
           stats={mockUsers.length}
