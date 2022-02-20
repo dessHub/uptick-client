@@ -28,12 +28,11 @@ export default function SelectMenu({ items, selected, setSelected }) {
 
               <Transition
                 show={open}
-                as={Fragment}
+                as="div"
                 leave="transition ease-in duration-100"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                SelectMenu
                 <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
                   {items.map((item, index) => (
                     <Listbox.Option

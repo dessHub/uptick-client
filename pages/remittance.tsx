@@ -39,7 +39,7 @@ export default function Remittance() {
   function reset() {
     setSelectedMember({
       id: 0,
-      name: 'Select Member',
+      name: 'Filter By Member',
     });
     setStartDate(date);
     setEndDate(dateNow);
