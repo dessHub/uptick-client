@@ -2,6 +2,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import Layout from '../components/templates/Layout';
 import SelectMenu from 'components/atoms/SelectMenu';
 import RangeDatePicker from 'components/atoms/RangeDatePicker';
+import RemittanceModal from 'components/atoms/RemittanceModal';
 import { useEffect, useState } from 'react';
 import { mockRemittance, mockUsers } from 'helpers/data';
 
@@ -19,6 +20,7 @@ export default function Remittance() {
   const date = new Date(year - 1, month, day);
   const [startDate, setStartDate] = useState(date);
   const [endDate, setEndDate] = useState(dateNow);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setSelectedMembers(mockUsers);
@@ -72,7 +74,7 @@ export default function Remittance() {
         <div className="flex md:justify-end items-center order-1 lg:order-2 mb-5 md:mb-0">
           <button
             className="flex items-center bg-blue-800 hover:bg-blue-900 text-blue-200 hover:text-blue-300 rounded px-5 py-1"
-            onClick={reset}
+            onClick={() => setOpen(true)}
           >
             <PlusIcon className="w-5 mr-1" aria-hidden="true" />
             Add Remittance
@@ -154,6 +156,7 @@ export default function Remittance() {
           </div>
         </div>
       </div>
+      <RemittanceModal open={open} setOpen={setOpen} members={members} />
     </Layout>
   );
 }
