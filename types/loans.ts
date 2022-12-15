@@ -1,7 +1,7 @@
 import { User } from './users';
 import { PaymentStatus } from './enums';
 
-export interface Loan {
+interface Loan {
   id: number;
   user: User;
   guarantors: Array<User>;
@@ -15,7 +15,7 @@ export interface Loan {
   status: PaymentStatus;
 }
 
-export interface Payment {
+interface Payment {
     id: number;
     user: User;
     amount: number;
@@ -23,3 +23,24 @@ export interface Payment {
     updatedOn: Date;
     loan: Loan; 
 }
+
+interface LoanApplicationObject {
+    firstName: string,
+    lastName: string,
+    phoneNo: string,
+    idNo: string,
+    type: 0 | 1,
+    amount: number,
+    interest: 7 | 10,
+    guarantors: Guarantor[],
+    idFile: string,
+    loalFile: string
+}
+
+interface Guarantor {
+    member: string,
+    quaranteePercentage: number,
+    quatanteeAmount: number,
+}
+
+export type {Loan, Payment, LoanApplicationObject, Guarantor}

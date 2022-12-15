@@ -1,54 +1,29 @@
 import { } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import type { LoanApplicationObject } from '@/types/loans';
 
-type Inputs = { 
-  type: 0 | 1;
-  idNo?: string;
+type Inputs = {
+  idFile: string;
+  loanFile: string;
 };
 
 interface Props {
-    updateStepper: (arg: number) => void,
-    loanApplicationObject: LoanApplicationObject,
-    setLoanApplicationObject: (arg: LoanApplicationObject) => void
+    updateStepper: (arg: number) => void
 }
 
-const LoanTypeForm = ({ updateStepper, loanApplicationObject, setLoanApplicationObject }: Props) => {
-    const loanTypes = [
-        {
-            value: 0,
-            title: 'Self'
-        },
-        {
-            value: 1,
-            title: 'Customer'
-        }
-    ];
+const LoanFilesUpload = ({ updateStepper }: Props) => {
 
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
-    } = useForm({
-            defaultValues: {
-                type: loanApplicationObject.type,
-                idNo: '',
-            }
-        });
+    } = useForm();
 
     const onSubmit: SubmitHandler<Inputs> = data => {
-        setLoanApplicationObject({
-            ...loanApplicationObject,
-            ...data,
-            interest: data.type === 0 ? 7 : 10
-        })
-        updateStepper(0)
+        console.log('rrrrd',data);
+        updateStepper(3)
     }
     console.log('errors', errors);
-
-    const watchType = watch("type");
 
     return (
 
@@ -56,47 +31,48 @@ const LoanTypeForm = ({ updateStepper, loanApplicationObject, setLoanApplication
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="px-0 py-5 bg-white sm:p-6">
                     <div className="grid grid-cols-6 gap-6">
-                        <div className="col-span-6 sm:col-span-3">
-                            <label
-                                htmlFor="member"
-                                className="block text-sm font-medium text-gray-700"
-                            >
-                                Loan Type
-                            </label>
-                            <select
-                                {...register('type')}
-                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            >
-                                {loanTypes.map(type => (
-                                <option value={type.value} key={type.value}>
-                                    {type.title}
-                                </option>
-                                ))}
-                            </select>
-                        </div>
 
-                        {watchType == 1 && (
                         <div className="col-span-6 sm:col-span-3">
                             <label
                                 htmlFor="last-name"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Customer ID No
+                                ID (Upload scanned ID)
                             </label>
                             <input
-                                {...register('idNo', { minLength: 4, required: "This is required." })}
-                                type="text"
-                                name="idNo"
-                                id="idNo"
-                                placeholder="1212"
+                                {...register('idFile', { required: "This is required." })}
+                                type="file"
+                                name="idFile"
+                                id="idFile"
                                 className="mt-1 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
                             />
                             <ErrorMessage 
                              errors={errors} 
-                             name="idNo"
+                             name="idFile"
                              render={({ message }) => <p className='text-red-500 text-sm'>{message}</p>}
                              />
-                        </div>)}
+                        </div>
+
+                        <div className="col-span-6 sm:col-span-3">
+                            <label
+                                htmlFor="last-name"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Loan Application form
+                            </label>
+                            <input
+                                {...register('loanFile', { required: "This is required." })}
+                                type="file"
+                                name="loanFile"
+                                id="loanFile"
+                                className="mt-1 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
+                            />
+                            <ErrorMessage 
+                             errors={errors} 
+                             name="loanFile"
+                             render={({ message }) => <p className='text-red-500 text-sm'>{message}</p>}
+                             />
+                        </div>
                     </div>
                 </div>
                 <div className="mt-3 px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -112,4 +88,4 @@ const LoanTypeForm = ({ updateStepper, loanApplicationObject, setLoanApplication
     )
 };
 
-export default LoanTypeForm;
+export default LoanFilesUpload;
