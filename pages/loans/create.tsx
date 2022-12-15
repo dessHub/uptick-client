@@ -4,9 +4,19 @@ import LoanTypeForm from '@/components/atoms/forms/LoanTypeForm';
 import LoanUserDetails from '@/components/atoms/forms/LoanUserDetails';
 import LoanDetails from '@/components/atoms/forms/LoanDetails';
 import { useState } from 'react';
+import LoanFilesUpload from '@/components/atoms/forms/LoanFilesUpload';
+import type { LoanApplicationObject } from '@/types/loans';
+
+interface Step {
+    key: number,
+    label: number,
+    title: string,
+    isActive: boolean,
+    isCompleted: boolean
+}
 
 export default function NewLoan() {
-    const stepperData = [
+    const stepperData: Step[] = [
         {
             key: 1,
             label: 1,
@@ -27,10 +37,29 @@ export default function NewLoan() {
             isActive: false,
             isCompleted: false,
             title: 'Loan Details'
+        },
+        {
+            key: 4,
+            label: 4,
+            isActive: false,
+            isCompleted: false,
+            title: 'Loan Documents Upload'
         }
     ];
 
-    const [steppers, setSteppers] = useState([...stepperData])
+    const [steppers, setSteppers] = useState<Step[]>([...stepperData]);
+    const [loanApplicationObject, setLoanApplicationObject] = useState<LoanApplicationObject>({
+        firstName: '',
+        lastName: '',
+        phoneNo: '',
+        idNo: '',
+        type: 0,
+        amount: 500,
+        interest: 7,
+        guarantors: [],
+        idFile: '',
+        loalFile: ''
+    });
 
     const updateStepper = (idx) => {
         const _steppers = [...steppers];
@@ -55,6 +84,13 @@ export default function NewLoan() {
         _steppers[idx] = current;
         setSteppers([..._steppers])
     }
+    console.log('setLoanApplicationObject', loanApplicationObject)
+
+    const isDisabled = (step: Step) => {
+        if (step.key === 1) return false;
+
+        return !step.isCompleted;
+    }
 
     return (
         <Layout>
@@ -66,7 +102,7 @@ export default function NewLoan() {
                 <div className="bg-slate-100 shadow-md p-3">
                     {steppers.map((step, index) => (
                         <div className='' key={step.key}>
-                            <button className='flex items-center w-full cursor-pointer' onClick={()=> handleStepper(index)}>
+                            <button className='flex items-center w-full cursor-pointer' disabled={isDisabled(step)} onClick={()=> handleStepper(index)}>
                                 {step.isCompleted ? 
                                   (<CheckCircleIcon className="block mr-2 w-6 h-6 bg-green-800 text-white rounded-full" aria-hidden="true" />) :
                                   (<div className={`flex items-center justify-center mr-2 w-6 h-6 rounded-full border-2 border-solid text-center ${step.isActive || step.key === 1 ? 'text-green-800 border-green-800' : 'text-gray-300'}`}>
@@ -86,9 +122,10 @@ export default function NewLoan() {
                                     <div className={`w-1 h-full border-r-2 ${step.isCompleted ? 'border-solid border-green-800' : `border-dotted ${step.isActive ? 'border-green-800' : 'border-gray-300'}`}`}></div>
                                 </div>
                                 <div className={`flex-1 p-2 ${step.isActive ? 'bg-white' : 'bg-inherit'}`}>
-                                    {(step.key === 1 && step.isActive) && (<LoanTypeForm updateStepper={updateStepper} />)}
-                                    {(step.key === 2 && step.isActive) && (<LoanUserDetails updateStepper={updateStepper} />)}
-                                    {(step.key === 3 && step.isActive) && (<LoanDetails updateStepper={updateStepper} />)}
+                                    {(step.key === 1 && step.isActive) && (<LoanTypeForm updateStepper={updateStepper} loanApplicationObject={loanApplicationObject} setLoanApplicationObject={setLoanApplicationObject} />)}
+                                    {(step.key === 2 && step.isActive) && (<LoanUserDetails updateStepper={updateStepper} loanApplicationObject={loanApplicationObject} setLoanApplicationObject={setLoanApplicationObject} />)}
+                                    {(step.key === 3 && step.isActive) && (<LoanDetails updateStepper={updateStepper} loanApplicationObject={loanApplicationObject} setLoanApplicationObject={setLoanApplicationObject} />)}
+                                    {(step.key === 4 && step.isActive) && (<LoanFilesUpload updateStepper={updateStepper} />)}
                                 </div>
                             </div>
                         </div>

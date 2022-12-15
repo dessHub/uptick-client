@@ -1,27 +1,38 @@
 import { } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { LoanApplicationObject } from '@/types/loans';
 
 type Inputs = {
   firstName: string;
   lastName: string;
-  idFile: string;
 };
 
 interface Props {
-    updateStepper: (arg: number) => void
+    updateStepper: (arg: number) => void,
+    loanApplicationObject: LoanApplicationObject,
+    setLoanApplicationObject: (arg: LoanApplicationObject) => void
 }
 
-const LoanUserDetails = ({ updateStepper }: Props) => {
+const LoanUserDetails = ({ updateStepper, loanApplicationObject, setLoanApplicationObject }: Props) => {
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm({
+            defaultValues: {
+                firstName: loanApplicationObject.firstName,
+                lastName: loanApplicationObject.lastName,
+                phoneNo: loanApplicationObject.phoneNo
+            }
+        });
 
     const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data);
+        setLoanApplicationObject({
+            ...loanApplicationObject,
+            ...data
+        })
         updateStepper(1)
     }
     console.log('errors', errors);
@@ -81,18 +92,19 @@ const LoanUserDetails = ({ updateStepper }: Props) => {
                                 htmlFor="last-name"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                ID (Upload scanned ID)
+                                Phone Number
                             </label>
                             <input
-                                {...register('idFile', { required: "This is required." })}
-                                type="file"
-                                name="idFile"
-                                id="idFile"
+                                {...register('phoneNo', { minLength: 10, maxLength: 10, required: "This is required." })}
+                                type="text"
+                                name="phoneNo"
+                                id="phoneNo"
+                                placeholder="0712345678"
                                 className="mt-1 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
                             />
                             <ErrorMessage 
                              errors={errors} 
-                             name="idFile"
+                             name="phoneNo"
                              render={({ message }) => <p className='text-red-500 text-sm'>{message}</p>}
                              />
                         </div>

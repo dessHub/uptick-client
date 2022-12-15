@@ -6,6 +6,7 @@ export const mockUsers = [
     name: 'Mark Petterson',
     roles: ['Admin', 'Member'],
     email: 'markr@example.com',
+    savings: 20000,
     image:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
   },
@@ -16,6 +17,7 @@ export const mockUsers = [
     name: 'Jane Cooper',
     roles: ['Member'],
     email: 'jane.cooper@example.com',
+    savings: 30000,
     image:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
   },
@@ -26,6 +28,7 @@ export const mockUsers = [
     name: 'Ben mark',
     roles: ['User'],
     email: 'ben.mark@example.com',
+    savings: 34000,
     image:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
   },
@@ -36,6 +39,7 @@ export const mockUsers = [
     name: 'Merry Marc',
     roles: ['Treasurer', 'Member'],
     email: 'mary@example.com',
+    savings: 12000,
     image:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
   },
@@ -46,6 +50,7 @@ export const mockUsers = [
     name: 'Jennifer Jay',
     roles: ['User'],
     email: 'jay@example.com',
+    savings: 45000,
     image:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
   },
@@ -56,6 +61,7 @@ export const mockUsers = [
     name: 'Harry kane',
     roles: ['Member'],
     email: 'harry@example.com',
+    savings: 25000,
     image:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
   },
