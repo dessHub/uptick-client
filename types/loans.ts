@@ -34,7 +34,7 @@ interface LoanApplicationObject {
     interest: 7 | 10,
     guarantors: Guarantor[],
     idFile: string,
-    loalFile: string
+    loanFile: string
 }
 
 interface Guarantor {
