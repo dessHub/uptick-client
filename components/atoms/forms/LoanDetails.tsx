@@ -25,6 +25,17 @@ const LoanDetails = ({ updateStepper, loanApplicationObject, setLoanApplicationO
     const [isError, setIsError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>('');
 
+    // update guarantors if exist
+    useEffect(() => {
+        if (loanApplicationObject.guarantors.length > 0) {
+            const _guarantors = [];
+            loanApplicationObject.guarantors.forEach((item) => {
+                _guarantors.push({percentage: item.quaranteePercentage, amount: item.quatanteeAmount, savings: getMemberSavings(item.member) })
+            })
+            setGuarantors(_guarantors)
+        }
+    }, [])
+
     const {
         register,
         unregister,
@@ -60,10 +71,15 @@ const LoanDetails = ({ updateStepper, loanApplicationObject, setLoanApplicationO
             updateStepper(2)
         }
     }
-    console.log('errors', errors);
 
     useEffect(() => {
-        setValue('amount', 500)
+        setValue('amount', 500);
+        if (loanApplicationObject.guarantors.length) { 
+            for(let i = 0; i < loanApplicationObject.guarantors.length; i++) {
+             setValue(`guarantor.${i}`, loanApplicationObject.guarantors[i].member)
+            }
+
+        }
     }, []);
 
     const amount = watch('amount');
@@ -89,13 +105,14 @@ const LoanDetails = ({ updateStepper, loanApplicationObject, setLoanApplicationO
     }, [amount])
 
     const handlePercentageChange = (e: number, idx: number) => {
-        const percentageTracker = guarantors.reduce((acc, item) => acc += item.percentage, 0);
+        let percentageTracker = guarantors.reduce((acc, item) => acc += item.percentage, 0);
 
         const _guarantor = guarantors[idx];
         const _guarantors = [...guarantors];
-        const isNeg = _guarantor.percentage > e;
+        const diff = e - _guarantor.percentage;
+        percentageTracker = percentageTracker + diff;
 
-        if (percentageTracker !== 100 || isNeg) {
+        if (percentageTracker <= 100) {
             const _savings = getMemberSavings(guarantorWatch[idx])
             const _amount = getAmount(e);
             if (_amount <= _savings) {

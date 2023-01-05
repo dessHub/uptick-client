@@ -1,6 +1,7 @@
 import { } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { LoanApplicationObject } from '@/types/loans';
 
 type Inputs = {
   idFile: string;
@@ -8,16 +9,22 @@ type Inputs = {
 };
 
 interface Props {
-    updateStepper: (arg: number) => void
+    updateStepper: (arg: number) => void,
+    loanApplicationObject: LoanApplicationObject
 }
 
-const LoanFilesUpload = ({ updateStepper }: Props) => {
+const LoanFilesUpload = ({ updateStepper, loanApplicationObject }: Props) => {
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm({
+        defaultValues: {
+            idFile: loanApplicationObject.idFile,
+            loanFile: loanApplicationObject.loanFile
+        }
+    });
 
     const onSubmit: SubmitHandler<Inputs> = data => {
         console.log('rrrrd',data);
