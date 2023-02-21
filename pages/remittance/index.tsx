@@ -1,8 +1,8 @@
 import { PlusIcon } from '@heroicons/react/outline';
-import Layout from '../components/templates/Layout';
+import Layout from '../../components/templates/Layout';
 import SelectMenu from 'components/atoms/SelectMenu';
 import RangeDatePicker from 'components/atoms/RangeDatePicker';
-import RemittanceModal from 'components/atoms/RemittanceModal';
+import RemittanceModal from '@/components/atoms/modals/RemittanceModal';
 import { useEffect, useState } from 'react';
 import { mockRemittance, mockUsers } from 'helpers/data';
 
