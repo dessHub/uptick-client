@@ -85,12 +85,8 @@ export default function Processing() {
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <Link href={`/loans/${item.id}`} key={item.name}>
-                                        <a
-                                            className='text-blue-500 hover:text-gray-800 text-xs font-medium'
-                                        >
-                                            View
-                                        </a>
+                                    <Link href={`/loans/${item.id}`} key={item.name} className='text-blue-500 hover:text-gray-800 text-xs font-medium'>
+                                        View
                                     </Link>
                                 </td>
                             </tr>

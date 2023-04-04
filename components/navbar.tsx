@@ -29,13 +29,8 @@ export default function Nav() {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center mr-10 md:mr-1">
-                  <Link href="/">
-                    <a
-                      className="text-2xl text-blue-200 font-semibold h-16 px-2 flex items-center hover:text-blue-200"
-                      href="/"
-                    >
-                      <span>UPTICK</span>
-                    </a>
+                  <Link href="/" className="text-2xl text-blue-200 font-semibold h-16 px-2 flex items-center hover:text-blue-200">
+                    <span>UPTICK</span>
                   </Link>
                 </div>
               </div>
@@ -60,29 +55,23 @@ export default function Nav() {
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
                       <Menu.Item>
                         {({ active }) => (
-                          <Link href="/">
-                            <a
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
-                              My Profile
-                            </a>
+                          <Link href="/" className={classNames(
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
+                            )}
+                          >
+                            My Profile
                           </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <Link href="/">
-                            <a
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
-                              Sign out
-                            </a>
+                          <Link href="/" className={classNames(
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
+                            )}
+                          >
+                            Sign out
                           </Link>
                         )}
                       </Menu.Item>
